@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "v@vadzim.info",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.11.6",
