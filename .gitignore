@@ -60,3 +60,8 @@ typings/
 # compiled files
 dist
 .tscache
+
+#secrets
+cert.pem
+key.pem
+passphrase.txt
