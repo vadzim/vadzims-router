@@ -19,7 +19,9 @@ tls.createServer({ key, cert, passphrase }, socket => {
 	.listen({ ipv6Only: true, port: 443, host: "::" })
 
 http.createServer((request, response) => {
-	response.setHeader("Location", new URL(request.url, `https://${request.headers.host}`).href)
+	const url = new URL(request.url, `https://${request.headers.host}`).href
+	console.log(`Redirecting to ${url}`)
+	response.setHeader("Location", url)
 	response.statusCode = 301
 	response.end()
 })
