@@ -65,3 +65,6 @@ dist
 cert.pem
 key.pem
 passphrase.txt
+/server.cert
+/.gitignore
+/server.key

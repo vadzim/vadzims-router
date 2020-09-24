@@ -3,8 +3,8 @@ import tls from "tls"
 import net from "net"
 import { pipe } from "./pipeworkaround.js"
 
-const key = fs.readFileSync("key.pem")
-const cert = fs.readFileSync("cert.pem")
+const key = fs.readFileSync("server.key")
+const cert = fs.readFileSync("server.cert")
 const passphrase = (() => { try { return String(fs.readFileSync("passphrase.txt")) } catch {} })()
 
 tls.createServer({ key, cert, passphrase }, socket => {
