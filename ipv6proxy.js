@@ -1,6 +1,7 @@
 import fs from "fs"
 import tls from "tls"
 import net from "net"
+import http from "http"
 import { pipe } from "./pipeworkaround.js"
 
 const key = fs.readFileSync("server.key")
@@ -14,5 +15,14 @@ tls.createServer({ key, cert, passphrase }, socket => {
 	pipe(socket, dest)
 })
 	.on("error", e => console.error(e))
-	.on("listening", () => console.log("Proxy server is listening"))
+	.on("listening", () => console.log("Https proxy server is listening"))
 	.listen({ ipv6Only: true, port: 443, host: "::" })
+
+http.createServer((request, response) => {
+	response.setHeader("Location", new URL(request.url, `https://${request.headers.host}`).href)
+	response.statusCode = 301
+	response.end()
+})
+	.on("error", e => console.error(e))
+	.on("listening", () => console.log("Http server is listening"))
+	.listen({ ipv6Only: true, port: 80, host: "::" })
