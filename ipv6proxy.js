@@ -10,6 +10,10 @@ const passphrase = (() => { try { return String(fs.readFileSync("passphrase.txt"
 
 tls.createServer({ key, cert, passphrase }, socket => {
 	const dest = net.connect(80, "127.0.0.1")
+
+	socket.on("error", e => console.error(e))
+	dest.on("error", e => console.error(e))
+
 	dest.pipe(socket)
 	// socket.pipe(dest) doesn't work somehow......
 	pipe(socket, dest)
